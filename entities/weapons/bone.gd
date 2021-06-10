@@ -5,6 +5,8 @@ var movedir = Vector2(0,0)
 var shooter
 var received_sync = false
 
+onready var animation = $AnimationPlayer
+
 func start():
 	$AnimationPlayer.play("spin")
 	shooter = get_parent()
@@ -39,3 +41,8 @@ func body_entered(body):
 	elif body != shooter:
 		delete()
 		network.peer_call(self, "delete")
+
+func cut(hitbox):
+	var pos = self.position
+	animation.play("break")
+	sfx.play("enemy_hurt")
